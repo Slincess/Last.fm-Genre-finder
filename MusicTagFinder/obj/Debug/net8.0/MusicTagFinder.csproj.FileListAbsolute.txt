@@ -16,3 +16,4 @@ C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\obj\Debug\net8.0\Music
 C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\obj\Debug\net8.0\MusicTagFinder.genruntimeconfig.cache
 C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\obj\Debug\net8.0\ref\MusicTagFinder.dll
 C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Debug\net8.0\TagLibSharp.dll
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\obj\Debug\net8.0\MusicTagFinder.sourcelink.json

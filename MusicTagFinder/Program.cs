@@ -6,6 +6,8 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
+//todo: 
+//nur paar bestimmte als genre lassen sonnst kommt sehr kommische genren raus.
 class Program
 {
     static List<string> MusicFiles = new List<string>();
@@ -15,6 +17,22 @@ class Program
     static int FoundTagsCount = 0;
     static int NotFoundTagsCount = 0;
     static List<string> TagsNotFoundMusics = new List<string>();
+
+    static readonly HashSet<string> AllowedGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "rock","indie-rock","pop","indie-pop","hip-hop","rap","trap","drill","r&b","soul","funk","jazz",
+        "blues","metal","heavy-metal","death-metal","black-metal","hardcore","post-hardcore","alternative-rock",
+        "grunge","progressive-rock","psychedelic-rock","garage-rock","classic-rock","punk","punk-rock","pop-punk",
+        "new-wave","synth-pop","folk","folk-rock","indie-folk","country","alt-country","bluegrass","reggae","dub",
+        "dancehall","ska","latin","reggaeton","bachata","salsa","merengue","cumbia","k-pop","j-pop","city-pop",
+        "electronic","edm","house","deep-house","techno","minimal-techno","progressive-house","drum-and-bass",
+        "dubstep","brostep","trance","psytrance","hardstyle","hardcore-techno","ambient","downtempo","chillout",
+        "lofi","chillhop","electro","industrial","noise","experimental","glitch","trip-hop","breakbeat","grime",
+        "uk-garage","2-step","disco","italo-disco","shoegaze","dream-pop","math-rock","post-rock","emo","screamo",
+        "gospel","christian","opera","classical","baroque","romantic-period","modern-classical","soundtrack",
+        "film-score","anime-score","video-game-music","acoustic","instrumental","spoken-word","world","afrobeat",
+        "krautrock"
+    };
 
     static async Task Main(string[] args)
     {
@@ -32,9 +50,10 @@ class Program
         {
             Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
             string Answer = Console.ReadLine();
-            if (Answer == "y" && Answer == "yes")
+            if (Answer.ToLower() == "y" || Answer.ToLower() == "yes")
             {
                 Console.WriteLine($"Not found for:");
+
                 foreach (var i in TagsNotFoundMusics)
                 {
                     Console.WriteLine(i);
@@ -42,14 +61,9 @@ class Program
                 Console.WriteLine("press any key to escape");
                 Console.ReadKey();
             }
-            else
-            {
-                Console.WriteLine("press any key to escape");
-                Console.ReadKey();
-            }
-            Console.WriteLine("press any key to escape");
-            Console.ReadKey();
         }
+        Console.WriteLine("press any key to escape");
+        Console.ReadKey();
     }
 
     static async Task GetAllMusicFiles(string MusicLibPath)
@@ -92,10 +106,14 @@ class Program
                     string response = await client.GetStringAsync(url);
                     JObject json = JObject.Parse(response);
 
+
                     var tags = json["toptags"]?["tag"];
                     if (tags != null)
                     {
-                        var genreNames = tags.Select(tag => (string)tag["name"]).ToArray();
+                        var genreNames = tags
+                        .Select(tag => (string)tag["name"])
+                        .Where(name => AllowedGenres.Contains(name))
+                        .ToArray();
                         foreach (var tag in tags)
                         {
                             Console.WriteLine($"Tag/s Found for {tfile.Tag.Title} :");
@@ -108,7 +126,7 @@ class Program
                     {
                         Console.WriteLine("No tags to be found.");
                         NotFoundTagsCount++;
-                        TagsNotFoundMusics.Add(tfile.Tag.Title);
+                        TagsNotFoundMusics.Add(title);
                     }
                     tfile.Save();
                 }
