@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MusicTagFinder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efac4fd46a9a1ad33a97d3536cac65c08820757f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6aa02d7fc2b78b1414f4b589fad57950473ca8e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("MusicTagFinder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MusicTagFinder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

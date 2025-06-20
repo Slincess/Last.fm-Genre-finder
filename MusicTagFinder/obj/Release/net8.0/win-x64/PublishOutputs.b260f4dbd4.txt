@@ -1,0 +1,7 @@
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\MusicTagFinder.exe
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\MusicTagFinder.dll
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\MusicTagFinder.deps.json
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\MusicTagFinder.runtimeconfig.json
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\MusicTagFinder.pdb
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\Newtonsoft.Json.dll
+C:\Users\kisac\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish\TagLibSharp.dll

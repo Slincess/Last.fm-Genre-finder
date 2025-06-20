@@ -6,8 +6,10 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
-//todo: 
-//nur paar bestimmte als genre lassen sonnst kommt sehr kommische genren raus.
+/// <summary>
+/// todo: 
+/// 
+/// </summary>
 class Program
 {
     static List<string> MusicFiles = new List<string>();
@@ -36,11 +38,15 @@ class Program
 
     static async Task Main(string[] args)
     {
-        Console.WriteLine("Last.fm API key:");
-        APIkey = Console.ReadLine();
-        Console.WriteLine("your music lib path:");
-        MusicLib = Console.ReadLine();
-        await GetAllMusicFiles(MusicLib);
+        if (args.Length < 3 || args[0].ToLower() != "easytag")
+        {
+            Console.WriteLine("Usage: tagrm easyTag <LastFmApiKey> <PathToMusic>");
+            return;
+        }
+
+        APIkey = args[1];
+        MusicLib = args[2];
+
         await GetTag();
         Console.WriteLine(" ");
         Console.WriteLine("Finished Tags are saved in Genre section");
