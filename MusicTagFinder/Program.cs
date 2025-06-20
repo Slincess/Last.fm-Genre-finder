@@ -47,6 +47,7 @@ class Program
         APIkey = args[1];
         MusicLib = args[2];
 
+        await GetAllMusicFiles(MusicLib);
         await GetTag();
         Console.WriteLine(" ");
         Console.WriteLine("Finished Tags are saved in Genre section");
