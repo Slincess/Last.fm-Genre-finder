@@ -17,16 +17,23 @@ film-score, anime-score, video-game-music, acoustic, instrumental, spoken-word, 
 afrobeat, krautrock
 </details>
 
+This tool reads your music library directly from the path you give it.
+No Docker or servers
+
 installation and Usage
 
-after installing the tagrm.exe start it and set it up.
+after installing the tagrm.exe run it once.
 
 restart the computer to apply changes.
 
 open cmd and use it.
 
 usage:
-tagrm <yourLast.fmAPI> <"yourMusicLibPATH">
+tagrm easyTag <yourLast.fmAPI> <"yourMusicLibPATH">
+
+example:
+tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "" 
+
 
 Questions or Problems?
 Feel free to contact me on Discord:
