@@ -22,7 +22,7 @@ No Docker or servers
 
 installation and Usage
 
-after installing the tagrm.exe run it once.
+after installing the tagrmSetup.exe run it once.
 
 restart the computer to apply changes.
 
