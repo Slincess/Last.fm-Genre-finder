@@ -1,23 +1,15 @@
-installation and Ussage 
+installation and Usage
 
-extrackt the Zip/rar folder
-after that open the file and find "MusicTagFinder" exe
+after installing the tagrm.exe start it and set it up.
 
-![image](https://github.com/user-attachments/assets/aabbcd77-72f0-4f64-851a-ce7c6133c851)
+restart the computer to apply changes.
 
-start the application.
+open cmd and use it.
 
-![image](https://github.com/user-attachments/assets/f7564000-6300-4247-9e30-00334174af85)
+usage:
+tagrm <yourLast.fmAPI> <"yourMusicLibPATH">
 
-Paste your Last.fm API (if you dont have one get one under https://www.last.fm/api/account/create )
+Questions or Problems?
+Feel free to contact me on Discord:
 
-![image](https://github.com/user-attachments/assets/28db65ae-339c-464f-8232-719688a4fb61)
-
-after that paste your music library path.
-
-![image](https://github.com/user-attachments/assets/4b658afc-17b1-422c-9ea4-38174ea99edb)
-
-press enter.
-
-if you have any quations you can reach me in discord under slincess.
-have fun!
+discord username : slincess
