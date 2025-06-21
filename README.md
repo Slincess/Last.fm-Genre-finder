@@ -35,6 +35,7 @@ example:
 tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "Z:\music" 
 
 new features will be added soon:
+
 add or remove genre types
 save your music lib path and API key to quick tagscan
 auto detect new files and auto tagScan
