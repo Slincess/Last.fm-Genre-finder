@@ -8,7 +8,11 @@ using System.IO;
 
 /// <summary>
 /// todo: 
-/// 
+/// settings{
+/// add or remove genre types [needs to be tested]
+/// save your music lib path and API key to quick tagscan
+/// auto detect new files and auto tagScan
+/// }
 /// </summary>
 class Program
 {
@@ -20,7 +24,7 @@ class Program
     static int NotFoundTagsCount = 0;
     static List<string> TagsNotFoundMusics = new List<string>();
 
-    static readonly HashSet<string> AllowedGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    static HashSet<string> AllowedGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
         "rock","indie-rock","pop","indie-pop","hip-hop","rap","trap","drill","r&b","soul","funk","jazz",
         "blues","metal","heavy-metal","death-metal","black-metal","hardcore","post-hardcore","alternative-rock",
@@ -38,14 +42,19 @@ class Program
 
     static async Task Main(string[] args)
     {
-        if (args.Length < 3 || args[0].ToLower() != "easytag")
+        string Command = args[0].ToLower();
+        switch (Command)
         {
-            Console.WriteLine("Usage: tagrm easyTag <LastFmApiKey> <PathToMusic>");
-            return;
+            case ("easytag"):
+                APIkey = args[1];
+                MusicLib = args[2];
+                break;
+            case ("settings"):
+                HandleSettings(args);
+                break;
+            default:
+                break;
         }
-
-        APIkey = args[1];
-        MusicLib = args[2];
 
         await GetAllMusicFiles(MusicLib);
         await GetTag();
@@ -148,6 +157,24 @@ class Program
                 TagsNotFoundMusics.Add(tfile.Tag.Title);
                 throw;
             }
+        }
+    }
+
+    static void HandleSettings(string[] args)
+    {
+        //tagrm settings addGenre kpop
+        switch (args[1].ToLower())
+        {
+            case ("addgenre"):
+                AllowedGenres.Add(args[2]);
+                Console.WriteLine($"{args[2]} is added to allowed genres");
+            break;
+            case ("removegenre"):
+                AllowedGenres.Remove(args[2]);
+                Console.WriteLine($"{args[2]} is removed from allowed genres");
+                break;
+            default:
+                break;
         }
     }
 }
