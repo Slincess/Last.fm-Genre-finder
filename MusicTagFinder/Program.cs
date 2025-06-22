@@ -15,7 +15,6 @@ using Newtonsoft.Json;
 /// add or remove genre types [needs to be tested]
 /// save your music lib path and API key to quick tagscan [needs to be tested]
 /// save scanned files so you dont have to scan the samefiles you already scanned [needs to be tested]
-/// auto detect new files and auto tagScan
 /// }
 /// </summary>
 class Program

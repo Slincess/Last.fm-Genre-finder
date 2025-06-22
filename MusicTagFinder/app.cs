@@ -60,7 +60,7 @@ namespace MusicTagFinder
                         {
                             Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
                             string Answer = Console.ReadLine();
-                            if (Answer.ToLower() == "y" || Answer.ToLower() == "yes")
+                            if (string.Equals(Answer,"y") || string.Equals(Answer,"yes"))
                             {
                                 Console.WriteLine($"Not found for:");
 
@@ -82,7 +82,7 @@ namespace MusicTagFinder
                 case ("settings"):
                     if (args.Length >= 3)
                         HandleSettings(args);
-                    else { Console.WriteLine("missing argumments"); }
+                    else { Console.WriteLine("missing arguments (-help for commands)"); }
                     break;
                 default:
                     break;
@@ -139,6 +139,13 @@ namespace MusicTagFinder
                 string title = tfile.Tag.Title;
                 string artist = tfile.Tag.FirstArtist;
 
+                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(artist))
+                {
+                    NotFoundTagsCount++;
+                    TagsNotFoundMusics.Add(Path.GetFileName(item));
+                    return;
+                }   
+
 
                 string url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
 
@@ -180,9 +187,8 @@ namespace MusicTagFinder
             catch (Exception ex)
             {
                 Console.WriteLine($"a problem {ex}");
-                Console.WriteLine("No tags to be found.");
-                NotFoundTagsCount++;
-                TagsNotFoundMusics.Add(Path.GetFileName(item));
+                Console.WriteLine("No connaction or connaction failed.");
+                return;
             }
         }
 
@@ -206,18 +212,20 @@ namespace MusicTagFinder
                     Console.WriteLine($"{args[2]} is removed from allowed genres");
                     break;
                 case ("scannscannedfiles"):
-                    if (args[2] == "true")
+                    if (args[2].ToLower() == "true")
                         settings.sScann_ScannedMusicFiles = true;
-                    else if (args[2] == "false")
+                    else if (args[2].ToLower() == "false")
                         settings.sScann_ScannedMusicFiles = false;
                     else
                     {
                         Console.WriteLine("only true or false. true = it will scan scanned music files. false = it wont scan scanned files.");
                         return;
                     }
+                    SaveSettings();
                     break;
 
                 default:
+                    Console.WriteLine($"unvalid argument {args[1]}");
                     break;
             }
         }
