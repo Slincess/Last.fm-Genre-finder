@@ -106,6 +106,7 @@ namespace MusicTagFinder
             Console.WriteLine("Finished Tags are saved in Genre section");
             Console.WriteLine(" ");
             Console.WriteLine($"found tags for {FoundTagsCount} music and not for {NotFoundTagsCount}");
+            SaveSettings();
             if (NotFoundTagsCount > 0)
             {
                 Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
@@ -237,35 +238,74 @@ namespace MusicTagFinder
                     SaveSettings();
                     break;
 
+                case ("savedata"):
+                    if (args[2].ToLower() == "true")
+                        settings.sSaveAPIkeyandPath = true;
+                    else if (args[2].ToLower() == "false")
+                        settings.sSaveAPIkeyandPath = false;
+                    SaveSettings();
+                        break;
+
                 default:
                     Console.WriteLine($"unvalid argument {args[1]}");
                     break;
             }
         }
 
+        static readonly string SettingsPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "tagrm",
+            "settings.json"
+            );
+
         private void LoadSettings()
         {
-            if (File.Exists("settings.json")){
-                string json = File.ReadAllText("settings.json");
-                settings = JsonConvert.DeserializeObject<Settings>(json) ?? new Settings();
-            }
+            try
+            {
+                if (File.Exists(SettingsPath))
+                {
+                    string json = File.ReadAllText(SettingsPath);
+                    settings = JsonConvert.DeserializeObject<Settings>(json) ?? new Settings();
+                    Console.WriteLine("Loaded existing settings.");
+                }
+                else
+                {
+                    settings = new Settings();
+                    SaveSettings();
+                    Console.WriteLine("No settings found. Created default settings.json.");
+                }
 
-            APIkey = settings.sAPIKey;
-            MusicLib = settings.sMusicLibPath;
-            AllowedGenres = settings.sAllowedGenres.ToHashSet(StringComparer.OrdinalIgnoreCase) ?? new();
-            ScannedMusicFiles = settings.sScannedMusicFiles ?? new();
+                APIkey = settings.sAPIKey;
+                MusicLib = settings.sMusicLibPath;
+                AllowedGenres = settings.sAllowedGenres?.ToHashSet(StringComparer.OrdinalIgnoreCase) ?? new();
+                ScannedMusicFiles = settings.sScannedMusicFiles ?? new();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading settings: " + ex.Message);
+                settings = new Settings();
+            }
         }
 
         private void SaveSettings()
         {
+            try
+            {
+                if (!Directory.Exists(Path.GetDirectoryName(SettingsPath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
 
-            settings.sAPIKey = APIkey;
-            settings.sMusicLibPath = MusicLib;
-            settings.sAllowedGenres = AllowedGenres.ToList();
-            settings.sScannedMusicFiles = ScannedMusicFiles;
+                settings.sAPIKey = APIkey;
+                settings.sMusicLibPath = MusicLib;
+                settings.sAllowedGenres = AllowedGenres.ToList();
+                settings.sScannedMusicFiles = ScannedMusicFiles;
 
-            string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
-            File.WriteAllText("settings.json",json);
+                string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+                File.WriteAllText(SettingsPath, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to save settings: " + ex.Message);
+            }
         }
 
         private void ShowHelp()
@@ -276,8 +316,8 @@ namespace MusicTagFinder
             Console.WriteLine("  tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your music with genres");
             Console.WriteLine("  tagrm settings                                                      - View or change settings");
             Console.WriteLine("  tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files");
-            Console.WriteLine("  tagrm settings Save APIkey and libPath true/false                   - save API key and libPath to quick scan");
-            Console.WriteLine("  tagrm help                                                          - Show this help menu");
+            Console.WriteLine("  tagrm settings savedata true/false                                  - save API key and libPath to quick scan");
+            Console.WriteLine("  tagrm -help                                                          - Show this help menu");
         }
     }
 }

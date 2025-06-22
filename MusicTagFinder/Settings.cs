@@ -8,13 +8,11 @@ namespace MusicTagFinder
 {
     internal class Settings
     {
-        public string? sAPIKey { get; set; }
-        public string? sMusicLibPath { get; set; }
-
+        public string sAPIKey { get; set; } = "";
+        public string sMusicLibPath { get; set; } = "";
+        public List<string> sAllowedGenres { get; set; } = new List<string>();
         public bool sScann_ScannedMusicFiles { get; set; } = false;
         public bool sSaveAPIkeyandPath { get; set; } = true;
-
-        public List<string> sScannedMusicFiles { get; set; } = new();
-        public List<string> sAllowedGenres { get; set; } = new();
+        public List<string> sScannedMusicFiles { get; set; } = new List<string>();
     }
 }
