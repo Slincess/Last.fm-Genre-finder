@@ -12,6 +12,7 @@ namespace MusicTagFinder
         public string? sMusicLibPath { get; set; }
 
         public bool sScann_ScannedMusicFiles { get; set; } = false;
+        public bool sSaveAPIkeyandPath { get; set; } = true;
 
         public List<string> sScannedMusicFiles { get; set; } = new();
         public List<string> sAllowedGenres { get; set; } = new();

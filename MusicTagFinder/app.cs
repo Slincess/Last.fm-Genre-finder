@@ -50,33 +50,14 @@ namespace MusicTagFinder
                         APIkey = args[1];
                         MusicLib = args[2];
 
-                        await GetAllMusicFiles(MusicLib);
-                        await GetTag();
-                        Console.WriteLine(" ");
-                        Console.WriteLine("Finished Tags are saved in Genre section");
-                        Console.WriteLine(" ");
-                        Console.WriteLine($"found tags for {FoundTagsCount} music and not for {NotFoundTagsCount}");
-                        if (NotFoundTagsCount > 0)
+                        if (settings.sSaveAPIkeyandPath == true)
                         {
-                            Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
-                            string Answer = Console.ReadLine();
-                            if (string.Equals(Answer,"y") || string.Equals(Answer,"yes"))
-                            {
-                                Console.WriteLine($"Not found for:");
-
-                                foreach (var i in TagsNotFoundMusics)
-                                {
-                                    Console.WriteLine(i);
-                                }
-                                Console.WriteLine("press any key to escape");
-                                Console.ReadKey();
-                            }
+                            settings.sAPIKey = APIkey;
+                            settings.sMusicLibPath = MusicLib;
                         }
-                        Console.WriteLine("press any key to escape");
-                        Console.ReadKey();
-
-
+                         await Start();
                     }
+                    else if(Directory.Exists(MusicLib) && settings.sAPIKey != null) { await Start(); }
                     else { Console.WriteLine($"APIkey or Path is missing"); return; }
                     break;
                 case ("settings"):
@@ -84,7 +65,11 @@ namespace MusicTagFinder
                         HandleSettings(args);
                     else { Console.WriteLine("missing arguments (-help for commands)"); }
                     break;
+                case ("-help"):
+                    ShowHelp();
+                    break;
                 default:
+                    Console.WriteLine("unknown command");
                     break;
             }
 
@@ -112,6 +97,34 @@ namespace MusicTagFinder
 
         }
 
+        private async Task Start()
+        {
+
+            await GetAllMusicFiles(MusicLib);
+            await GetTag();
+            Console.WriteLine(" ");
+            Console.WriteLine("Finished Tags are saved in Genre section");
+            Console.WriteLine(" ");
+            Console.WriteLine($"found tags for {FoundTagsCount} music and not for {NotFoundTagsCount}");
+            if (NotFoundTagsCount > 0)
+            {
+                Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
+                string Answer = Console.ReadLine();
+                if (string.Equals(Answer, "y") || string.Equals(Answer, "yes"))
+                {
+                    Console.WriteLine($"Not found for:");
+
+                    foreach (var i in TagsNotFoundMusics)
+                    {
+                        Console.WriteLine(i);
+                    }
+                    Console.WriteLine("press any key to escape");
+                    Console.ReadKey();
+                }
+            }
+            Console.WriteLine("press any key to escape");
+            Console.ReadKey();
+        }
         private async Task GetTag()
         {
             foreach (string item in MusicFiles)
@@ -253,6 +266,18 @@ namespace MusicTagFinder
 
             string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
             File.WriteAllText("settings.json",json);
+        }
+
+        private void ShowHelp()
+        {
+            Console.WriteLine("tagrm - Last.fm Genre Tagger");
+            Console.WriteLine("Usage:");
+            Console.WriteLine("  tagrm easytag <LastFmApiKey> <PathToMusic>                          - Tag your music with genres");
+            Console.WriteLine("  tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your music with genres");
+            Console.WriteLine("  tagrm settings                                                      - View or change settings");
+            Console.WriteLine("  tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files");
+            Console.WriteLine("  tagrm settings Save APIkey and libPath true/false                   - save API key and libPath to quick scan");
+            Console.WriteLine("  tagrm help                                                          - Show this help menu");
         }
     }
 }

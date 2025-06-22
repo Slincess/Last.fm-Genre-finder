@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,25 +21,12 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 283,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 408,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Settings.cs",
-              "DocumentMoniker": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Settings.cs",
-              "RelativeDocumentMoniker": "Settings.cs",
-              "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Settings.cs",
-              "RelativeToolTip": "Settings.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAowA0AAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T16:48:26.197Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -47,8 +34,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAqwBAAAABmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T18:24:04.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-16T18:24:04.276Z"
             },
             {
               "$type": "Document",
@@ -58,9 +44,22 @@
               "RelativeDocumentMoniker": "app.cs",
               "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\app.cs",
               "RelativeToolTip": "app.cs",
-              "ViewState": "AgIAALkAAAAAAAAAAAAAAMYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAEwDQAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-21T17:59:12.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Settings.cs",
+              "RelativeDocumentMoniker": "Settings.cs",
+              "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Settings.cs",
+              "RelativeToolTip": "Settings.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T16:48:26.197Z",
               "EditorCaption": ""
             }
           ]
