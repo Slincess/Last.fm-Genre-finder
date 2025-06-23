@@ -28,17 +28,18 @@ restart the computer to apply changes.
 
 open cmd and use it.
 
-usage:
-tagrm easyTag <yourLast.fmAPI> <"yourMusicLibPATH">
+usage:  
+tagrm easytag <LastFmApiKey> <"PathToMusic">                        - Tag your music with genres  
+tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your music with genres  
+tagrm settings                                                      - View or change settings  
+tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
+tagrm settings savedata true/false                                  - save API key and libPath to quick scan  
+tagrm -help                                                         - Show this help menu    
 
-example:
-tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "Z:\music" 
 
-new features will be added soon:
-
-add or remove genre types.  
-save your music lib path and API key to quick tagscan.  
-auto detect new files and auto tagScan.  
+examples:  
+tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "Z:\music"   
+tagrm settings scannscannedfiles true  
 
 Questions or Problems?
 Feel free to contact me on Discord:
