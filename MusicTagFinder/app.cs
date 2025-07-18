@@ -15,8 +15,6 @@ namespace MusicTagFinder
         private string APIkey;
         private string MusicLib;
 
-        private int FoundTagsCount = 0;
-        private int NotFoundTagsCount = 0;
         private List<string> TagsNotFoundMusics = new List<string>();
         private List<string> ScannedMusicFiles = new List<string>();
 
@@ -105,9 +103,10 @@ namespace MusicTagFinder
             Console.WriteLine(" ");
             Console.WriteLine("Finished Tags are saved in Genre section");
             Console.WriteLine(" ");
-            Console.WriteLine($"found tags for {FoundTagsCount} music and not for {NotFoundTagsCount}");
+            int found = ScannedMusicFiles.Count - TagsNotFoundMusics.Count;
+            Console.WriteLine($"found tags for { found.ToString()} music and not for {TagsNotFoundMusics.Count.ToString()}");
             SaveSettings();
-            if (NotFoundTagsCount > 0)
+            if (TagsNotFoundMusics.Count > 0)
             {
                 Console.WriteLine("do you wanna see which music/s we couldn't find Tag for? (y/n)");
                 string Answer = Console.ReadLine();
@@ -149,54 +148,83 @@ namespace MusicTagFinder
         {
             try
             {
-                var tfile = TagLib.File.Create(item);
-                string title = tfile.Tag.Title;
-                string artist = tfile.Tag.FirstArtist;
-
-                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(artist))
+                FileInfo fileInfo = new FileInfo(item);
+                if ((fileInfo.Attributes & FileAttributes.ReadOnly) != 0)
                 {
-                    NotFoundTagsCount++;
-                    TagsNotFoundMusics.Add(Path.GetFileName(item));
-                    return;
-                }   
-
-
-                string url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
-
-                using (HttpClient client = new HttpClient())
-                {
-                    string response = await client.GetStringAsync(url);
-                    JObject json = JObject.Parse(response);
-
-
-                    var tags = json["toptags"]?["tag"];
-                    if (tags != null)
-                    {
-                        var genreNames = tags
-                        .Select(tag => (string)tag["name"])
-                        .Where(name => AllowedGenres.Contains(name))
-                        .ToArray();
-                        foreach (var tag in tags)
-                        {
-                            Console.WriteLine($"Tag/s Found for {tfile.Tag.Title} :");
-                            Console.WriteLine($"Tag: {tag["name"]} - Count: {tag["count"]}");
-                        }
-                        tfile.Tag.Genres = genreNames;
-                        FoundTagsCount++;
-                        if (!settings.sScann_ScannedMusicFiles && !settings.sScannedMusicFiles.Contains(item))
-                        {
-                            settings.sScannedMusicFiles.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("No tags to be found.");
-                        NotFoundTagsCount++;
-                        if(!TagsNotFoundMusics.Contains(title))
-                            TagsNotFoundMusics.Add(title);
-                    }
-                    tfile.Save();
+                    Console.WriteLine($"{item} is read-only. Trying to remove read-only attribute...");
+                    fileInfo.Attributes &= ~FileAttributes.ReadOnly;
                 }
+
+                using (var tfile = TagLib.File.Create(item))
+                {
+                    string title = tfile.Tag.Title;
+                    string artist = tfile.Tag.FirstArtist;
+
+
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(artist))
+                    {
+                        TagsNotFoundMusics.Add(Path.GetFileName(item));
+                        return;
+                    }
+
+                    string url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
+                    using (HttpClient client = new HttpClient())
+                    {
+                        string response = await client.GetStringAsync(url);
+                        JObject json = JObject.Parse(response);
+
+                        var tags = json["toptags"]?["tag"];
+                        if (tags != null)
+                        {
+                            string[] genreNames = tags?
+                                .Select(tag => (string)tag["name"])
+                                .Where(name => AllowedGenres.Contains(name))
+                                .ToArray() ?? Array.Empty<string>();
+
+                            if(genreNames.Length == 0)
+                            {
+                                string urlArtist = $"http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist={HttpUtility.UrlEncode(artist)}&api_key={APIkey}&format=json";
+                                string responseArtist = await client.GetStringAsync(urlArtist);
+                                JObject jsonArtist = JObject.Parse(responseArtist);
+                                var tagsArtist = jsonArtist["toptags"]?["tag"];
+                                if(tagsArtist != null)
+                                {
+                                    genreNames = tagsArtist
+                                    .Select(tag => (string)tag["name"])
+                                    .Where(name => AllowedGenres.Contains(name))
+                                    .ToArray() ?? Array.Empty<string>();
+                                }
+                                    
+                            }
+
+                            foreach (var tag in tags)
+                            {
+                                Console.WriteLine($"Tag/s Found for {tfile.Tag.Title} :");
+                                Console.WriteLine($"Tag: {tag["name"]} - Count: {tag["count"]}");
+                            }
+
+                            genreNames = genreNames.Where(name => AllowedGenres.Contains(name)).ToArray();
+                            var id3v2 = tfile.GetTag(TagLib.TagTypes.Id3v2, true);
+                            id3v2.Genres = genreNames;
+
+                            Console.WriteLine("Genres written:");
+                            foreach (var g in id3v2.Genres) Console.WriteLine($"- {g}");
+
+                            if (!settings.sScann_ScannedMusicFiles && !settings.sScannedMusicFiles.Contains(item))
+                            {
+                                settings.sScannedMusicFiles.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No tags to be found.");
+                            if (!TagsNotFoundMusics.Contains(title))
+                                TagsNotFoundMusics.Add(title);
+                        }
+                        tfile.Save();
+                    }
+                }
+
             }
             catch (Exception ex)
             {
