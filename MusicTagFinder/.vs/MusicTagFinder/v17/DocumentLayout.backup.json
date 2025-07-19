@@ -7,15 +7,15 @@
       "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kisac\\AppData\\Roaming\\tagrm\\settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kisac\\AppData\\Roaming\\tagrm\\settings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|c:\\users\\kisac\\source\\repos\\musictagfinder\\musictagfinder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A9EA9E7-7F7F-4189-A6E4-D08FF3128806}|MusicTagFinder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,19 +29,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "settings.json",
               "DocumentMoniker": "C:\\Users\\kisac\\AppData\\Roaming\\tagrm\\settings.json",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\tagrm\\settings.json",
               "ToolTip": "C:\\Users\\kisac\\AppData\\Roaming\\tagrm\\settings.json",
               "RelativeToolTip": "..\\..\\..\\..\\AppData\\Roaming\\tagrm\\settings.json",
-              "ViewState": "AgIAADYEAAAAAAAAAAAAACQEAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-22T23:22:31.01Z"
+              "WhenOpened": "2025-06-22T23:22:31.01Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -59,7 +60,7 @@
               "RelativeDocumentMoniker": "app.cs",
               "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\app.cs",
               "RelativeToolTip": "app.cs",
-              "ViewState": "AgIAAKYAAAAAAAAAAAAMwLwAAABMAAAAAAAAAA==",
+              "ViewState": "AgIAADoBAAAAAAAAAAAuwBUBAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-21T17:59:12.995Z",
               "EditorCaption": ""
@@ -72,9 +73,10 @@
               "RelativeDocumentMoniker": "Settings.cs",
               "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\Settings.cs",
               "RelativeToolTip": "Settings.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T16:48:26.197Z"
+              "WhenOpened": "2025-06-21T16:48:26.197Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -13,6 +13,7 @@ namespace MusicTagFinder
         public List<string> sAllowedGenres { get; set; } = new List<string>();
         public bool sScann_ScannedMusicFiles { get; set; } = false;
         public bool sSaveAPIkeyandPath { get; set; } = true;
+        public bool sGetArtistGenre { get; set; } = true;
         public List<string> sScannedMusicFiles { get; set; } = new List<string>();
     }
 }

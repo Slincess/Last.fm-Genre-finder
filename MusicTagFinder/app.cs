@@ -180,8 +180,8 @@ namespace MusicTagFinder
                                 .Select(tag => (string)tag["name"])
                                 .Where(name => AllowedGenres.Contains(name))
                                 .ToArray() ?? Array.Empty<string>();
-
-                            if(genreNames.Length == 0)
+                            
+                            if(genreNames.Length == 0 && settings.sGetArtistGenre)
                             {
                                 string urlArtist = $"http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist={HttpUtility.UrlEncode(artist)}&api_key={APIkey}&format=json";
                                 string responseArtist = await client.GetStringAsync(urlArtist);
@@ -195,12 +195,6 @@ namespace MusicTagFinder
                                     .ToArray() ?? Array.Empty<string>();
                                 }
                                     
-                            }
-
-                            foreach (var tag in tags)
-                            {
-                                Console.WriteLine($"Tag/s Found for {tfile.Tag.Title} :");
-                                Console.WriteLine($"Tag: {tag["name"]} - Count: {tag["count"]}");
                             }
 
                             genreNames = genreNames.Where(name => AllowedGenres.Contains(name)).ToArray();
@@ -273,6 +267,16 @@ namespace MusicTagFinder
                         settings.sSaveAPIkeyandPath = false;
                     SaveSettings();
                         break;
+                case ("getartistgenre"):
+                    if (args[2].ToLower() == "true")
+                        settings.sGetArtistGenre = true;
+                    else if (args[2].ToLower() == "false")
+                        settings.sGetArtistGenre = false;
+                    SaveSettings();
+                    break;
+                case ("show"):
+                    ShowSettings(); 
+                    break;
 
                 default:
                     Console.WriteLine($"unvalid argument {args[1]}");
@@ -345,7 +349,19 @@ namespace MusicTagFinder
             Console.WriteLine("  tagrm settings                                                      - View or change settings");
             Console.WriteLine("  tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files");
             Console.WriteLine("  tagrm settings savedata true/false                                  - save API key and libPath to quick scan");
-            Console.WriteLine("  tagrm -help                                                          - Show this help menu");
+            Console.WriteLine("  tagrm settings addgenre <genre>                                     - adds the genre to allowed list");
+            Console.WriteLine("  tagrm settings removegenre <genre>                                  - remove the genre to allowed list");
+            Console.WriteLine("  tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist");
+            Console.WriteLine("  tagrm -help                                                         - Show this help menu");
+        }
+
+        private void ShowSettings()
+        {
+            Console.WriteLine($" getartistgenre    : {settings.sGetArtistGenre}");
+            Console.WriteLine($" saved API key     : {settings.sAPIKey}");
+            Console.WriteLine($" saved Path        : {settings.sMusicLibPath}");
+            Console.WriteLine($" scannscannedfiles : {settings.sScannedMusicFiles}");
+            Console.WriteLine($" save data         : {settings.sSaveAPIkeyandPath}");
         }
     }
 }
