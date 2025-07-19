@@ -352,6 +352,7 @@ namespace MusicTagFinder
             Console.WriteLine("  tagrm settings addgenre <genre>                                     - adds the genre to allowed list");
             Console.WriteLine("  tagrm settings removegenre <genre>                                  - remove the genre to allowed list");
             Console.WriteLine("  tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist");
+            Console.WriteLine("  tagrm settings show                                                 - shows your settings 
             Console.WriteLine("  tagrm -help                                                         - Show this help menu");
         }
 
