@@ -34,11 +34,11 @@ tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your m
 tagrm settings                                                      - View or change settings  
 tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
 tagrm settings savedata true/false                                  - save API key and libPath to quick scan   
-tagrm settings addgenre <genre>                                     - adds the genre to allowed list
-tagrm settings removegenre <genre>                                  - remove the genre to allowed list
-tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist
-tagrm settings show                                                 - shows your settings
-tagrm -help                                                         - Show this help menu
+tagrm settings addgenre <genre>                                     - adds the genre to allowed list  
+tagrm settings removegenre <genre>                                  - remove the genre to allowed list  
+tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist  
+tagrm settings show                                                 - shows your settings  
+tagrm -help                                                         - Show this help menu  
 
 
 examples:  
