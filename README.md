@@ -1,4 +1,5 @@
-IMPORTANT NOTE:
+IMPORTANT NOTE:<br/>
+well it runs on hopes and dreams, Ill fix it soon.
 This tool uses tags from Last.fm to determine the genre of your music. Only the following genres are supported all others will be ignored.
 
 <details> <summary>Click to see the full list of supported genres</summary>
