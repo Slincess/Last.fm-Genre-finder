@@ -54,16 +54,19 @@ tagrm settings scannscannedfiles true
 Make sure the .NET SDK is installed and added to your system PATH so the dotnet command works in CMD.
 
 
-clone the repo:
-<pre> ``git clone https://github.com/Slincess/Last.fm-Genre-finder.git </pre>
+- clone the repo:
+<pre> git clone https://github.com/Slincess/Last.fm-Genre-finder.git </pre>
 move to the folder where you cloned the repo:
 <pre> cd RepoClonePath/MusicTagFinder </pre>
 example:
 `C:\Users\<yourUsername>\source\repos\MusicTagFinder\MusicTagFinder` this is where .sln file is.<br/>
-compile it:
-<pre> dotnet publish -c Release -r win-x64 --self-contained true </pre>
 
-move it into Program Files directory:
+- compile it:
+<pre>dotnet publish -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true </pre>
+the exe will be in
+`C:\Users\<yourUsername\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish`
+
+- move it into Program Files directory:<br/>
 create a folder called "tagrm" not TAGRM or Tagrm or anything else.
 and move the exe into the folder you just created
 
