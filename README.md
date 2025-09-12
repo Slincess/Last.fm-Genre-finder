@@ -68,7 +68,8 @@ the exe will be in
 
 - move it into Program Files directory:<br/>
 create a folder called "tagrm" not TAGRM or Tagrm or anything else.
-and move the exe into the folder you just created
+and move the exe into the folder you just created<br/>
+rename the exe to : tagrm
 
 you may have to restart your pc for it to work.
 
