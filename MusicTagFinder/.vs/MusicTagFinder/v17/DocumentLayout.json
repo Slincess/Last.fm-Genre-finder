@@ -37,8 +37,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\AppData\\Roaming\\tagrm\\settings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-22T23:22:31.01Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-22T23:22:31.01Z"
             },
             {
               "$type": "Document",
@@ -60,7 +59,7 @@
               "RelativeDocumentMoniker": "app.cs",
               "ToolTip": "C:\\Users\\kisac\\source\\repos\\MusicTagFinder\\MusicTagFinder\\app.cs",
               "RelativeToolTip": "app.cs",
-              "ViewState": "AgIAADoBAAAAAAAAAAAuwEIBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACMBAAAAAAAAAAAmwGgBAACEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-21T17:59:12.995Z",
               "EditorCaption": ""
@@ -75,8 +74,7 @@
               "RelativeToolTip": "Settings.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T16:48:26.197Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-21T16:48:26.197Z"
             }
           ]
         }

@@ -12,8 +12,8 @@ namespace MusicTagFinder
     internal class App
     {
         private List<string> MusicFiles = new List<string>();
-        private string APIkey;
-        private string MusicLib;
+        private string? APIkey;
+        private string? MusicLib;
 
         private List<string> TagsNotFoundMusics = new List<string>();
         private List<string> ScannedMusicFiles = new List<string>();
@@ -45,25 +45,30 @@ namespace MusicTagFinder
                 case ("easytag"):
                     if (args.Length >= 3 && args[1] != null && args[2] != null)
                     {
-                        APIkey = args[1];
-                        MusicLib = args[2];
-
-                        if (settings.sSaveAPIkeyandPath == true)
-                        {
-                            settings.sAPIKey = APIkey;
-                            settings.sMusicLibPath = MusicLib;
+                        APIkey = args[2];
+                        MusicLib = args[1];
+                        if (args[2] == null && settings.sAPIKey != null) { Console.WriteLine("API Key is missing. saved API key will be used");}
+                        else if (args[2] == null && settings.sAPIKey == null) { 
+                            Console.WriteLine("Please give an API key");
+                            Console.WriteLine("see existing your API keys under: https://www.last.fm/api/accounts");
+                            Console.WriteLine("or create new API key for free under:https://www.last.fm/api/account/create");
+                            break;
                         }
-                         await Start();
+                            await Start();
                     }
-                    else if(Directory.Exists(MusicLib) && settings.sAPIKey != null) { await Start(); }
-                    else { Console.WriteLine($"APIkey or Path is missing"); return; }
                     break;
+
+
+
                 case ("settings"):
                     if (args.Length >= 3)
                         HandleSettings(args);
                     else { Console.WriteLine("missing arguments (-help for commands)"); }
                     break;
                 case ("-help"):
+                    ShowHelp();
+                    break;
+                case ("help"):
                     ShowHelp();
                     break;
                 default:
@@ -118,8 +123,6 @@ namespace MusicTagFinder
                     {
                         Console.WriteLine(i);
                     }
-                    Console.WriteLine("press any key to escape");
-                    Console.ReadKey();
                 }
             }
             Console.WriteLine("press any key to escape");
@@ -148,6 +151,7 @@ namespace MusicTagFinder
         {
             try
             {
+                string? url;
                 FileInfo fileInfo = new FileInfo(item);
                 if ((fileInfo.Attributes & FileAttributes.ReadOnly) != 0)
                 {
@@ -167,7 +171,17 @@ namespace MusicTagFinder
                         return;
                     }
 
-                    string url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
+                    
+
+                    if(APIkey == null)
+                    {
+                        url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={settings.sAPIKey}&format=json";
+                    }
+                    else
+                    {
+                        url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
+                    }
+
                     using (HttpClient client = new HttpClient())
                     {
                         string response = await client.GetStringAsync(url);
@@ -344,15 +358,14 @@ namespace MusicTagFinder
         {
             Console.WriteLine("tagrm - Last.fm Genre Tagger");
             Console.WriteLine("Usage:");
-            Console.WriteLine("  tagrm easytag <LastFmApiKey> <PathToMusic>                          - Tag your music with genres");
-            Console.WriteLine("  tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your music with genres");
+            Console.WriteLine("  tagrm easytag  <PathToMusic> <LastFmApiKey>                         - Tag your music with genres");
             Console.WriteLine("  tagrm settings                                                      - View or change settings");
             Console.WriteLine("  tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files");
             Console.WriteLine("  tagrm settings savedata true/false                                  - save API key and libPath to quick scan");
             Console.WriteLine("  tagrm settings addgenre <genre>                                     - adds the genre to allowed list");
             Console.WriteLine("  tagrm settings removegenre <genre>                                  - remove the genre to allowed list");
             Console.WriteLine("  tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist");
-            Console.WriteLine("  tagrm settings show                                                 - shows your settings 
+            Console.WriteLine("  tagrm settings show                                                 - shows your settings"); 
             Console.WriteLine("  tagrm -help                                                         - Show this help menu");
         }
 
