@@ -77,7 +77,9 @@ namespace MusicTagFinder
             }
 
         }
-
+        /// <summary>
+        /// get the music files in given args directory.
+        /// </summary>
         private async Task GetAllMusicFiles(string MusicLibPath)
         {
             string[] allMp3Files = Directory.GetFiles(MusicLibPath, "*.mp3", SearchOption.AllDirectories);
@@ -128,6 +130,10 @@ namespace MusicTagFinder
             Console.WriteLine("press any key to escape");
             Console.ReadKey();
         }
+        /// <summary>
+        /// scan the folder given in GetAllMusicFiles().
+        /// use GetAllMusicFiles() before using this
+        /// </summary>
         private async Task GetTag()
         {
             foreach (string item in MusicFiles)
@@ -147,6 +153,9 @@ namespace MusicTagFinder
             }
         }
 
+        /// <summary>
+        /// gets tag/s for one file. item = file path
+        /// </summary>
         private async Task GetTagFile(string item)
         {
             try
@@ -242,6 +251,9 @@ namespace MusicTagFinder
             }
         }
 
+        /// <summary>
+        /// handles settings
+        /// </summary>
         private void HandleSettings(string[] args)
         {
             //tagrm settings addGenre kpop
