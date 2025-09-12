@@ -28,8 +28,8 @@ restart the computer to apply changes.
 
 open cmd and use it.
 
-## usage:  
-tagrm easytag <"PathToMusic"> <LastFmApiKey>                        - Tag your music with genres  
+## usage:
+
 tagrm settings                                                      - View or change settings  
 tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
 tagrm settings savedata true/false                                  - save API key and libPath to quick scan   
