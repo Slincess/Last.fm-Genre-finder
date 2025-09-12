@@ -1,4 +1,5 @@
-IMPORTANT NOTE:
+IMPORTANT NOTE:<br/>
+well it runs on hopes and dreams, Ill fix it soon.
 This tool uses tags from Last.fm to determine the genre of your music. Only the following genres are supported all others will be ignored.
 
 <details> <summary>Click to see the full list of supported genres</summary>
@@ -34,11 +35,11 @@ tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your m
 tagrm settings                                                      - View or change settings  
 tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
 tagrm settings savedata true/false                                  - save API key and libPath to quick scan   
-tagrm settings addgenre <genre>                                     - adds the genre to allowed list
-tagrm settings removegenre <genre>                                  - remove the genre to allowed list
-tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist
-tagrm settings show                                                 - shows your settings
-tagrm -help                                                         - Show this help menu
+tagrm settings addgenre <genre>                                     - adds the genre to allowed list  
+tagrm settings removegenre <genre>                                  - remove the genre to allowed list  
+tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist  
+tagrm settings show                                                 - shows your settings  
+tagrm -help                                                         - Show this help menu  
 
 
 examples:  
