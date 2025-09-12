@@ -1,5 +1,4 @@
 IMPORTANT NOTE:<br/>
-well it runs on hopes and dreams, Ill fix it soon.
 This tool uses tags from Last.fm to determine the genre of your music. Only the following genres are supported all others will be ignored.
 
 <details> <summary>Click to see the full list of supported genres</summary>
@@ -21,17 +20,16 @@ afrobeat, krautrock
 This tool reads your music library directly from the path you give it.
 No Docker or servers
 
-installation and Usage
+# installation and Usage
 
-after installing the tagrmSetup.exe run it once.
+after installing tagrmSetup.exe run it once.
 
 restart the computer to apply changes.
 
 open cmd and use it.
 
-usage:  
-tagrm easytag <LastFmApiKey> <"PathToMusic">                        - Tag your music with genres  
-tagrm easytag WORKS ONLY IF APIkey&libPATH SAVE SETTING IS ON       - Tag your music with genres  
+## usage:  
+tagrm easytag <"PathToMusic"> <LastFmApiKey>                        - Tag your music with genres  
 tagrm settings                                                      - View or change settings  
 tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
 tagrm settings savedata true/false                                  - save API key and libPath to quick scan   
@@ -45,6 +43,28 @@ tagrm -help                                                         - Show this 
 examples:  
 tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "Z:\music"   
 tagrm settings scannscannedfiles true  
+
+# How to compile for yourself
+## Prerequisites
+- **.NET SDK 7.0** or later installed (needed to compile the project)
+  - Download here: [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
+Make sure the .NET SDK is installed and added to your system PATH so the dotnet command works in CMD.
+
+
+clone the repo:
+<pre> ``git clone https://github.com/Slincess/Last.fm-Genre-finder.git </pre>
+move to the folder where you cloned the repo:
+<pre> cd RepoClonePath/MusicTagFinder </pre>
+example:
+`C:\Users\<yourUsername>\source\repos\MusicTagFinder\MusicTagFinder` this is where .sln file is.<br/>
+compile it:
+<pre> dotnet publish -c Release -r win-x64 --self-contained true </pre>
+
+move it into Program Files directory:
+create a folder called "tagrm" not TAGRM or Tagrm or anything else.
+and move the exe into the folder you just created
+
+you may have to restart your pc for it to work.
 
 Questions or Problems?
 Feel free to contact me on Discord:
