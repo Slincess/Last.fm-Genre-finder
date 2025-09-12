@@ -30,18 +30,21 @@ open cmd and use it.
 
 ## usage:
 
-tagrm settings                                                      - View or change settings  
-tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files  
-tagrm settings savedata true/false                                  - save API key and libPath to quick scan   
-tagrm settings addgenre <genre>                                     - adds the genre to allowed list  
-tagrm settings removegenre <genre>                                  - remove the genre to allowed list  
-tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist  
-tagrm settings show                                                 - shows your settings  
-tagrm -help                                                         - Show this help menu  
+<br/>
+	
+`tagrm easytag <"PathToMusic"> <LastFmApiKey>` 												- Tag your music with genres  
+`tagrm settings`                                                      - View or change settings  
+`tagrm settings scannscannedfiles <true/false>`                         - scan(true) or dont scan(false) already scanned files  
+`tagrm settings savedata <true/false>`                                  - save API key and libPath to quick scan   
+`tagrm settings addgenre <genre>`                                     - adds the genre to allowed list  
+`tagrm settings removegenre <genre>`                                  - remove the genre to allowed list  
+`tagrm settings getartistgenre true/false`                            - if its true and if the track doesnt have a genre it will get the genre of the first artist  
+`tagrm settings show`                                                 - shows your settings  
+`tagrm -help`                                                         - Show this help menu  
 
 
 examples:  
-tagrm easyTag 73f12e9e514f9c65fac2g123few58538af798d5 "Z:\music"   
+tagrm easyTag "Z:\music" 73f12e9e514f9c65fac2g123few58538af798d5   
 tagrm settings scannscannedfiles true  
 
 # How to compile for yourself
