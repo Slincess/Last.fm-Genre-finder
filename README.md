@@ -74,6 +74,11 @@ create a folder called "tagrm" not TAGRM or Tagrm or anything else.
 and move the exe into the folder you just created<br/>
 rename the exe to : tagrm
 
+- press windows key + r on your keyboard to open the run box, then type `sysdm.cpl` press enter.
+- In the resulting window in the "Advanced" tab, click the "Environment variables" button.
+- In the next window under "System variables", select "Path", then press "Edit".
+- Add the path to tagrm. example `C:\Program Files\tagrm\` .
+
 you may have to restart your pc for it to work.
 
 Questions or Problems?
