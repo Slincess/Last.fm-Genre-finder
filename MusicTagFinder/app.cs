@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿#pragma warning disable
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -42,24 +43,63 @@ namespace MusicTagFinder
             string Command = args[0].ToLower();
             switch (Command)
             {
+                // args[2] == API key args[1] = musicLib
                 case ("easytag"):
-                    if (args.Length >= 3 && args[1] != null && args[2] != null)
+                    if (args.Length >= 3) // user provided path + key
                     {
-                        APIkey = args[2];
                         MusicLib = args[1];
-                        if (args[2] == null && settings.sAPIKey != null) { Console.WriteLine("API Key is missing. saved API key will be used");}
-                        else if (args[2] == null && settings.sAPIKey == null) { 
-                            Console.WriteLine("Please give an API key");
-                            Console.WriteLine("see existing your API keys under: https://www.last.fm/api/accounts");
-                            Console.WriteLine("or create new API key for free under:https://www.last.fm/api/account/create");
-                            break;
-                        }
-                            await Start();
+                        APIkey = args[2];
+                        await Start();
                     }
+                    else if (args.Length == 2) // only path provided
+                    {
+                        if (!Directory.Exists(args[1]))
+                        {
+                            APIkey = args[1];
+                            if (!string.IsNullOrEmpty(settings.sMusicLibPath))
+                            {
+                                MusicLib = settings.sMusicLibPath;
+                                Console.WriteLine("Path is missing. using saved Path");
+                                await Start();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Path is missing also there is not saved path");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            MusicLib = args[1];
+                            if (!string.IsNullOrEmpty(settings.sAPIKey))
+                            {
+                                APIkey = settings.sAPIKey;
+                                Console.WriteLine("API key missing. Using saved API key.");
+                                await Start();
+                            }
+                            else
+                            {
+                                Console.WriteLine("API key is missing also there is no saved API key");
+                                return;
+                            }
+                        }
+                    }
+                    else // no args at all
+                    {
+                        if (!string.IsNullOrEmpty(settings.sMusicLibPath) && !string.IsNullOrEmpty(settings.sAPIKey))
+                        {
+                            MusicLib = settings.sMusicLibPath;
+                            APIkey = settings.sAPIKey;
+                            Console.WriteLine("No arguments. Using saved path and API key.");
+                            await Start();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please provide a path and API key (no saved values found).");
+                        }
+                    }
+
                     break;
-
-
-
                 case ("settings"):
                     if (args.Length >= 3)
                         HandleSettings(args);
@@ -89,6 +129,7 @@ namespace MusicTagFinder
             {
                 Console.WriteLine(item);
             }
+
             Console.WriteLine(" ");
             Console.WriteLine($"we found {MusicFiles.Count} mp3 files");
             Console.WriteLine(" ");
@@ -190,56 +231,89 @@ namespace MusicTagFinder
                     {
                         url = $"http://ws.audioscrobbler.com/2.0/?method=track.getTopTags&artist={HttpUtility.UrlEncode(artist)}&track={HttpUtility.UrlEncode(title)}&api_key={APIkey}&format=json";
                     }
-
-                    using (HttpClient client = new HttpClient())
+                    try
                     {
-                        string response = await client.GetStringAsync(url);
-                        JObject json = JObject.Parse(response);
-
-                        var tags = json["toptags"]?["tag"];
-                        if (tags != null)
+                        using (HttpClient client = new HttpClient())
                         {
-                            string[] genreNames = tags?
-                                .Select(tag => (string)tag["name"])
-                                .Where(name => AllowedGenres.Contains(name))
-                                .ToArray() ?? Array.Empty<string>();
-                            
-                            if(genreNames.Length == 0 && settings.sGetArtistGenre)
+                            string response = await client.GetStringAsync(url);
+                            JObject json = JObject.Parse(response);
+
+                            var tags = json["toptags"]?["tag"];
+                            if (tags != null)
                             {
-                                string urlArtist = $"http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist={HttpUtility.UrlEncode(artist)}&api_key={APIkey}&format=json";
-                                string responseArtist = await client.GetStringAsync(urlArtist);
-                                JObject jsonArtist = JObject.Parse(responseArtist);
-                                var tagsArtist = jsonArtist["toptags"]?["tag"];
-                                if(tagsArtist != null)
-                                {
-                                    genreNames = tagsArtist
+                                string[] genreNames = tags?
                                     .Select(tag => (string)tag["name"])
                                     .Where(name => AllowedGenres.Contains(name))
                                     .ToArray() ?? Array.Empty<string>();
+
+                                if (genreNames.Length == 0 && settings.sGetArtistGenre)
+                                {
+                                    string urlArtist = $"http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist={HttpUtility.UrlEncode(artist)}&api_key={APIkey}&format=json";
+                                    try
+                                    {
+
+                                    }
+                                    catch { Console.WriteLine("couldnt connect to last.fm you might be offline"); }
+                                    string responseArtist = await client.GetStringAsync(urlArtist);
+                                    JObject jsonArtist = JObject.Parse(responseArtist);
+                                    var tagsArtist = jsonArtist["toptags"]?["tag"];
+                                    if (tagsArtist != null)
+                                    {
+                                        genreNames = tagsArtist
+                                        .Select(tag => (string)tag["name"])
+                                        .Where(name => AllowedGenres.Contains(name))
+                                        .ToArray() ?? Array.Empty<string>();
+                                    }
+
                                 }
-                                    
+
+                                genreNames = genreNames.Where(name => AllowedGenres.Contains(name)).ToArray();
+                                var id3v2 = tfile.GetTag(TagLib.TagTypes.Id3v2, true);
+                                if (settings.sFixArtistNames)
+                                {
+                                    artist = artist.Replace(",", "; ");
+                                    try
+                                    {
+                                        tfile.Tag.AlbumArtists = new string[] { artist };
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine($"{title} couldnt replace , with ; in album artist");
+                                    }
+                                    try
+                                    {
+                                        tfile.Tag.Artists = new string[] { artist };
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine($"{title} couldnt replace , with ; in contributing artist");
+                                    }
+                                }
+                                id3v2.Genres = genreNames;
+
+                                Console.WriteLine("Genres written:");
+                                foreach (var g in id3v2.Genres) Console.WriteLine($"- {g}");
+
+                                if (!settings.sScann_ScannedMusicFiles && !settings.sScannedMusicFiles.Contains(item))
+                                {
+                                    settings.sScannedMusicFiles.Add(item);
+                                }
                             }
-
-                            genreNames = genreNames.Where(name => AllowedGenres.Contains(name)).ToArray();
-                            var id3v2 = tfile.GetTag(TagLib.TagTypes.Id3v2, true);
-                            id3v2.Genres = genreNames;
-
-                            Console.WriteLine("Genres written:");
-                            foreach (var g in id3v2.Genres) Console.WriteLine($"- {g}");
-
-                            if (!settings.sScann_ScannedMusicFiles && !settings.sScannedMusicFiles.Contains(item))
+                            else
                             {
-                                settings.sScannedMusicFiles.Add(item);
+                                Console.WriteLine("No tags to be found.");
+                                if (!TagsNotFoundMusics.Contains(title))
+                                    TagsNotFoundMusics.Add(title);
                             }
+                            tfile.Save();
                         }
-                        else
-                        {
-                            Console.WriteLine("No tags to be found.");
-                            if (!TagsNotFoundMusics.Contains(title))
-                                TagsNotFoundMusics.Add(title);
-                        }
-                        tfile.Save();
                     }
+                    catch
+                    {
+                        Console.WriteLine("couldnt connect to last.fm you might be offline");
+                        throw;
+                    }
+                    
                 }
 
             }
@@ -303,6 +377,12 @@ namespace MusicTagFinder
                 case ("show"):
                     ShowSettings(); 
                     break;
+                case ("fixartistname"):
+                   if (args[2].ToLower() == "true")
+                        settings.sFixArtistNames = true;
+                    else if (args[2].ToLower() == "false")
+                        settings.sFixArtistNames = false;
+                 break;
 
                 default:
                     Console.WriteLine($"unvalid argument {args[1]}");
@@ -375,8 +455,9 @@ namespace MusicTagFinder
             Console.WriteLine("  tagrm settings scannscannedfiles true/false                         - scan(true) or dont scan(false) already scanned files");
             Console.WriteLine("  tagrm settings savedata true/false                                  - save API key and libPath to quick scan");
             Console.WriteLine("  tagrm settings addgenre <genre>                                     - adds the genre to allowed list");
-            Console.WriteLine("  tagrm settings removegenre <genre>                                  - remove the genre to allowed list");
+            Console.WriteLine("  tagrm settings removegenre <genre>                                  - remove the genre from allowed list");
             Console.WriteLine("  tagrm settings getartistgenre true/false                            - if its true and if the track doesnt have a genre it will get the genre of the first artist");
+            Console.WriteLine("  tagrm settings FixArtistName true/false                             - if its true it will replace {,} with {;}");
             Console.WriteLine("  tagrm settings show                                                 - shows your settings"); 
             Console.WriteLine("  tagrm -help                                                         - Show this help menu");
         }
@@ -386,6 +467,7 @@ namespace MusicTagFinder
             Console.WriteLine($" getartistgenre    : {settings.sGetArtistGenre}");
             Console.WriteLine($" saved API key     : {settings.sAPIKey}");
             Console.WriteLine($" saved Path        : {settings.sMusicLibPath}");
+            Console.WriteLine($" fix artist names  : {settings.sFixArtistNames}");
             Console.WriteLine($" scannscannedfiles : {settings.sScannedMusicFiles}");
             Console.WriteLine($" save data         : {settings.sSaveAPIkeyandPath}");
         }
