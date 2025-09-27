@@ -51,8 +51,11 @@ tagrm settings scannscannedfiles true
 ## Prerequisites
 - **.NET SDK 7.0** or later installed (needed to compile the project)
   - Download here: [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
-Make sure the .NET SDK is installed and added to your system PATH so the dotnet command works in CMD.
-
+Make sure the .NET SDK is installed and added to your system PATH so the dotnet command works in CMD. <br/>
+- **TagLibSharp 2.3.0** <br/>
+  - Install it via dotnet: `dotnet add package TagLibSharp --version 2.3.0` <br/>
+- **Newtonsoft.json 13.0.3** <br/>
+  - Install it via dotnet: `dotnet add package Newtonsoft.Json --version 13.0.3` <br/>
 
 - clone the repo:
 <pre> git clone https://github.com/Slincess/Last.fm-Genre-finder.git </pre>
