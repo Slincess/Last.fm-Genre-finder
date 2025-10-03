@@ -57,17 +57,28 @@ Make sure the .NET SDK is installed and added to your system PATH so the dotnet 
 - **Newtonsoft.json 13.0.3** <br/>
   - Install it via dotnet: `dotnet add package Newtonsoft.Json --version 13.0.3` <br/>
 
-- clone the repo:
-<pre> git clone https://github.com/Slincess/Last.fm-Genre-finder.git </pre>
-move to the folder where you cloned the repo:
-<pre> cd RepoClonePath/MusicTagFinder </pre>
-example:
-`C:\Users\<yourUsername>\source\repos\MusicTagFinder\MusicTagFinder` this is where .sln file is.<br/>
+-clone the repo:<br/>
 
-- compile it:
-<pre>dotnet publish -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true </pre>
+	git clone https://github.com/Slincess/Last.fm-Genre-finder.git
+  
+move to the folder where you cloned the repo:
+
+	 cd RepoClonePath/MusicTagFinder
+example:
+
+	C:\Users\<yourUsername>\source\repos\MusicTagFinder\MusicTagFinder
+	
+this is where .sln file is.<br/>
+
+ -compile it:<br/>
+ 
+  	dotnet publish -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
+
+ 		
+
 the exe will be in
-`C:\Users\<yourUsername\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish`
+
+	C:\Users\<yourUsername\source\repos\MusicTagFinder\MusicTagFinder\bin\Release\net8.0\win-x64\publish
 
 - move it into Program Files directory (you can also put somewhere else but Program Files directory is recommended):<br/>
   - create a folder called "tagrm" not TAGRM or Tagrm or anything else.
