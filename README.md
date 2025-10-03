@@ -18,7 +18,7 @@ afrobeat, krautrock
 </details>
 
 This tool reads your music library directly from the path you give it.
-No Docker or servers
+No Docker needed.
 
 # installation and Usage
 
