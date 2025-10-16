@@ -57,7 +57,7 @@ Make sure the .NET SDK is installed and added to your system PATH so the dotnet 
 - **Newtonsoft.json 13.0.3** <br/>
   - Install it via dotnet: `dotnet add package Newtonsoft.Json --version 13.0.3` <br/>
 
--clone the repo:<br/>
+clone the repo:<br/>
 
 	git clone https://github.com/Slincess/Last.fm-Genre-finder.git
   
@@ -70,7 +70,7 @@ example:
 	
 this is where .sln file is.<br/>
 
- -compile it:<br/>
+compile it:<br/>
  
   	dotnet publish -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
 
