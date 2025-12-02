@@ -20,16 +20,16 @@ afrobeat, krautrock
 This tool reads your music library directly from the path you give it.
 No Docker needed.
 
-## installation and Usage
+# installation and Usage
 
-# Windows
+## Windows
 after installing tagrmSetup.exe run it once.
 
 restart the computer to apply changes.
 
 open cmd and use it.
 
-# Linux 
+## Linux 
 
 Install the Linux file 
 
