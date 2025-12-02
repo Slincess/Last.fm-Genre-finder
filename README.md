@@ -20,13 +20,34 @@ afrobeat, krautrock
 This tool reads your music library directly from the path you give it.
 No Docker needed.
 
-# installation and Usage
+## installation and Usage
 
+# Windows
 after installing tagrmSetup.exe run it once.
 
 restart the computer to apply changes.
 
 open cmd and use it.
+
+# Linux 
+
+Install the Linux file 
+
+	wget https://github.com/Slincess/Last.fm-Genre-finder/releases/download/v3.5/tagrm_linux
+
+turn the linux file into executable file
+	
+	chmod +x tagrm_linux
+
+rename it into tagrm 
+
+	mv tagrm_linux tagrm
+
+move it into /bin/ for easy access like "tagrm easytag" [optional]
+
+	sudo mv tagrm_linux /usr/local/bin/
+
+
 
 ## usage:
 
